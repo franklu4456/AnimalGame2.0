@@ -10,7 +10,7 @@ namespace AnimalGame
     {
         private List<Animal> _playerAnimals, _enemyAnimals;
 
-        private List<Item> _playerItems, _enemyItems;
+        private List<Item> _playerItems;
 
         private bool _win, _isDead, _isWild, _isAttacking;
 
@@ -88,52 +88,359 @@ namespace AnimalGame
             }
         }
 
-        public List<Item> EnemyItems
-        {
-            get
-            {
-                return _enemyItems;
-            }
-            set
-            {
-                _enemyItems = value;
-            }
-        }
-
-
-
-        public Battle(List<Animal> playerAnimals, List<Animal> enemyAnimals, List<Item> playerItems, List<Item> enemyItems, bool IsWild)
+        public Battle(List<Animal> playerAnimals, List<Animal> enemyAnimals, List<Item> playerItems, bool IsWild)
         {
             PlayerAnimals = playerAnimals;
             EnemyAnimals = enemyAnimals;
             PlayerItems = playerItems;
-            EnemyItems = enemyItems;
             _isWild = IsWild;
         }
 
-        
+
         public bool Fight(int selectionNumber)
         {
-            if (PlayerAnimals.First().AttackArray[selectionNumber] is DamageAttack)
-            {
-                DamageAttack selectedAttack = (DamageAttack)PlayerAnimals.First().AttackArray[selectionNumber];
 
-                if (PlayerAnimals.First().Speed > EnemyAnimals.First().Speed)
+            const int STAT_BUFF = 50;
+
+            if (PlayerAnimals.First().Speed > EnemyAnimals.First().Speed)
+            {
+                if (PlayerAnimals.First().AttackArray[selectionNumber].IsDamageAttack)
                 {
+                    //Player Calculation
+                    DamageAttack selectedAttack = (DamageAttack)PlayerAnimals.First().AttackArray[selectionNumber];
+
+                    int damageCalculation = (int)(selectedAttack.Damage * (PlayerAnimals.First().Attack * 0.2));
+
+                    message = PlayerAnimals.First().Species.ToString() + "just attacked " + EnemyAnimals.First().Species.ToString() + "for " + damageCalculation + "damage";
+
+                    if (EnemyAnimals.First().Health <= damageCalculation)
+                    {
+                        EnemyAnimals.First().Health -= damageCalculation;
+                        PlayerAnimals.First().Level += 1;
+                        SwitchEnemyAnimal();
+                    }
+                    else
+                    {
+                        EnemyAnimals.First().Health -= damageCalculation;
+
+                        //Enemy Attack
+
+                        Random rng = new Random();
+
+                        int enemySelectedAttack = rng.Next(0, 4);
+
+                        if (EnemyAnimals.First().AttackArray[enemySelectedAttack].IsDamageAttack)
+                        {
+                            DamageAttack enemyDamageAttack = (DamageAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+
+                            int enemyDamageCalculation = (int)(enemyDamageAttack.Damage * (EnemyAnimals.First().Attack * 0.2));
+
+                            if (PlayerAnimals.First().Health <= enemyDamageCalculation)
+                            {
+                                PlayerAnimals.First().Health -= enemyDamageCalculation;
+                                SwitchAnimal();
+                            }
+                            else
+                                PlayerAnimals.First().Health -= enemyDamageCalculation;
+                        }
+                        else
+                        {
+                            StatChangeAttack enemyStatAttack = (StatChangeAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+                            if (enemyStatAttack.Effect == AttackEffect.PlayerStatBuff)
+                            {
+                                if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                                {
+                                    EnemyAnimals.First().Attack += STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                                {
+                                    EnemyAnimals.First().Health += STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                                {
+                                    EnemyAnimals.First().Defense += STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                                {
+                                    EnemyAnimals.First().Speed += STAT_BUFF;
+                                }
+                            }
+                            else
+                            {
+                                if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                                {
+                                    PlayerAnimals.First().Attack -= STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                                {
+                                    PlayerAnimals.First().Health -= STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                                {
+                                    PlayerAnimals.First().Defense -= STAT_BUFF;
+                                }
+                                else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                                {
+                                    PlayerAnimals.First().Speed -= STAT_BUFF;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    StatChangeAttack selectedAttack = (StatChangeAttack)PlayerAnimals.First().AttackArray[selectionNumber];
+                    if (selectedAttack.Effect == AttackEffect.PlayerStatBuff)
+                    {
+                        if (selectedAttack.StatChangeValue == Stat.Attack)
+                        {
+                            PlayerAnimals.First().Attack += STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Heal)
+                        {
+                            PlayerAnimals.First().Health += STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Defense)
+                        {
+                            PlayerAnimals.First().Defense += STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Speed)
+                        {
+                            PlayerAnimals.First().Speed += STAT_BUFF;
+                        }
+                    }
+                    else
+                    {
+                        if (selectedAttack.StatChangeValue == Stat.Attack)
+                        {
+                            EnemyAnimals.First().Attack -= STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Heal)
+                        {
+                            EnemyAnimals.First().Health -= STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Defense)
+                        {
+                            EnemyAnimals.First().Defense -= STAT_BUFF;
+                        }
+                        else if (selectedAttack.StatChangeValue == Stat.Speed)
+                        {
+                            EnemyAnimals.First().Speed -= STAT_BUFF;
+                        }
+                    }
                     
+
+                    Random rng = new Random();
+
+                    int enemySelectedAttack = rng.Next(0, 4);
+
+                    if (EnemyAnimals.First().AttackArray[enemySelectedAttack].IsDamageAttack)
+                    {
+                        DamageAttack enemyDamageAttack = (DamageAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+
+                        int enemyDamageCalculation = (int)(enemyDamageAttack.Damage * (EnemyAnimals.First().Attack * 0.2));
+
+                        if (PlayerAnimals.First().Health <= enemyDamageCalculation)
+                        {
+                            PlayerAnimals.First().Health -= enemyDamageCalculation;
+                            SwitchAnimal();
+                        }
+                        else
+                            PlayerAnimals.First().Health -= enemyDamageCalculation;
+                    }
+                    else
+                    {
+                        StatChangeAttack enemyStatAttack = (StatChangeAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+
+                        if (enemyStatAttack.Effect == AttackEffect.PlayerStatBuff)
+                        {
+                            if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                            {
+                                EnemyAnimals.First().Attack += STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                            {
+                                EnemyAnimals.First().Health += STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                            {
+                                EnemyAnimals.First().Defense += STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                            {
+                                EnemyAnimals.First().Speed += STAT_BUFF;
+                            }
+                        }
+                        else
+                        {
+                            if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                            {
+                                PlayerAnimals.First().Attack -= STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                            {
+                                PlayerAnimals.First().Health -= STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                            {
+                                PlayerAnimals.First().Defense -= STAT_BUFF;
+                            }
+                            else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                            {
+                                PlayerAnimals.First().Speed -= STAT_BUFF;
+                            }
+                        }
+                    }
                 }
             }
             else
             {
-                StatChangeAttack selectedAttack = (StatChangeAttack)PlayerAnimals.First().AttackArray[selectionNumber];
+                //Enemy Attack
+
+                Random rng = new Random();
+
+                int enemySelectedAttack = rng.Next(0, 4);
+
+                if (EnemyAnimals.First().AttackArray[enemySelectedAttack].IsDamageAttack)
+                {
+                    DamageAttack enemyDamageAttack = (DamageAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+
+                    int enemyDamageCalculation = (int)(enemyDamageAttack.Damage * (EnemyAnimals.First().Attack * 0.2));
+
+                    if (PlayerAnimals.First().Health <= enemyDamageCalculation)
+                    {
+                        PlayerAnimals.First().Health -= enemyDamageCalculation;
+                        SwitchAnimal();
+                    }
+                    else
+                    {
+                        PlayerAnimals.First().Health -= enemyDamageCalculation;
+
+                        if (PlayerAnimals.First().AttackArray[selectionNumber].IsDamageAttack)
+                        {
+                            //Player Calculation
+                            DamageAttack selectedAttack = (DamageAttack)PlayerAnimals.First().AttackArray[selectionNumber];
+
+                            int damageCalculation = (int)(selectedAttack.Damage * (PlayerAnimals.First().Attack * 0.2));
+
+                            message = PlayerAnimals.First().Species.ToString() + "just attacked " + EnemyAnimals.First().Species.ToString() + "for " + damageCalculation + "damage";
+
+                            if (EnemyAnimals.First().Health <= damageCalculation)
+                            {
+                                EnemyAnimals.First().Health -= damageCalculation;
+                                PlayerAnimals.First().Level += 1;
+                                SwitchEnemyAnimal();
+                            }
+                            else
+                                EnemyAnimals.First().Health -= damageCalculation;
+                        }
+                        else
+                        {
+                            StatChangeAttack selectedAttack = (StatChangeAttack)PlayerAnimals.First().AttackArray[selectionNumber];
+
+                            if (selectedAttack.Effect == AttackEffect.PlayerStatBuff)
+                            {
+                                if (selectedAttack.StatChangeValue == Stat.Attack)
+                                {
+                                    PlayerAnimals.First().Attack += STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Heal)
+                                {
+                                    PlayerAnimals.First().Health += STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Defense)
+                                {
+                                    PlayerAnimals.First().Defense += STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Speed)
+                                {
+                                    PlayerAnimals.First().Speed += STAT_BUFF;
+                                }
+                            }
+                            else
+                            {
+                                if (selectedAttack.StatChangeValue == Stat.Attack)
+                                {
+                                    EnemyAnimals.First().Attack -= STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Heal)
+                                {
+                                    EnemyAnimals.First().Health -= STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Defense)
+                                {
+                                    EnemyAnimals.First().Defense -= STAT_BUFF;
+                                }
+                                else if (selectedAttack.StatChangeValue == Stat.Speed)
+                                {
+                                    EnemyAnimals.First().Speed -= STAT_BUFF;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    StatChangeAttack enemyStatAttack = (StatChangeAttack)EnemyAnimals.First().AttackArray[enemySelectedAttack];
+
+                    if (enemyStatAttack.Effect == AttackEffect.PlayerStatBuff)
+                    {
+                        if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                        {
+                            EnemyAnimals.First().Attack += STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                        {
+                            EnemyAnimals.First().Health += STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                        {
+                            EnemyAnimals.First().Defense += STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                        {
+                            EnemyAnimals.First().Speed += STAT_BUFF;
+                        }
+                    }
+                    else
+                    {
+                        if (enemyStatAttack.StatChangeValue == Stat.Attack)
+                        {
+                            PlayerAnimals.First().Attack -= STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Heal)
+                        {
+                            PlayerAnimals.First().Health -= STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Defense)
+                        {
+                            PlayerAnimals.First().Defense -= STAT_BUFF;
+                        }
+                        else if (enemyStatAttack.StatChangeValue == Stat.Speed)
+                        {
+                            PlayerAnimals.First().Speed -= STAT_BUFF;
+                        }
+                    }
+                }
             }
 
+            return true;
+        }
 
-            
+        //Finish me
+        public bool SwitchAnimal()
+        {
 
         }
 
-        
+        public void SwitchEnemyAnimal()
+        {
+
+        }
+
+
 
     }
 }

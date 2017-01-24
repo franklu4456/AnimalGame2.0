@@ -1,4 +1,4 @@
-        public void SetAnimalStuff()
+public void SetAnimalStuff()
         {
             //Default Water Attacks
             Attack dirtyWater = null;
@@ -20,36 +20,36 @@
             //Default Earth Attacks
             Attack sandyWind = null;
             sandyWind.Effect = AttackEffect.EnemyStatDebuff;
-            sandyWind.AttackType = Type.Earth;
+            sandyWind.AttackType = Type.Rock;
 
             Attack mudBath = null;
             mudBath.Effect = AttackEffect.PlayerStatBuff;
-            mudBath.AttackType = Type.Earth;
+            mudBath.AttackType = Type.Rock;
 
             Attack pelt = null;
             pelt.Effect = AttackEffect.EnemyHealthDown;
-            pelt.AttackType = Type.Earth;
+            pelt.AttackType = Type.Rock;
 
             Attack bury = null;
             bury.Effect = AttackEffect.EnemyHealthDown;
-            bury.AttackType = Type.Earth;
+            bury.AttackType = Type.Rock;
 
             //Default Flying Attacks
             Attack showOff = null;
             showOff.Effect = AttackEffect.EnemyStatDebuff;
-            showOff.AttackType = Type.Flying;
+            showOff.AttackType = Type.Air;
 
             Attack groom = null;
             groom.Effect = AttackEffect.PlayerStatBuff;
-            groom.AttackType = Type.Flying;
+            groom.AttackType = Type.Air;
 
             Attack swoop = null;
             swoop.Effect = AttackEffect.EnemyHealthDown;
-            swoop.AttackType = Type.Flying;
+            swoop.AttackType = Type.Air;
 
             Attack peck = null;
             peck.Effect = AttackEffect.EnemyHealthDown;
-            peck.AttackType = Type.Flying;
+            peck.AttackType = Type.Air;
 
             //Default Fire Attacks
             Attack smog = null;
@@ -88,130 +88,30 @@
             //Default animals
 
             //Default Grass Animals
-            Animal grass1 = null;
-            grass1.MaxHealth = 50;
-            grass1.Health = grass1.MaxHealth;
-            grass1.Attack = 20;
-            grass1.Defense = 12;
-            grass1.Speed = 5;
-            grass1.Level = 1;
-            grass1.Species = Type.Grass;
-            grass1.AttackArray[0] = pricklyThorns;
-            grass1.AttackArray[1] = fallingBranch;
-            grass1.AttackArray[2] = poisonIvy;
+            Animal grass1 = new Animal(50, 20, 12, 5, Type.Grass, 1, pricklyThorns, fallingBranch, poisonIvy);
 
-            Animal grass2 = null;
-            grass2.MaxHealth = 75;
-            grass2.Health = grass2.MaxHealth;
-            grass2.Attack = 15;
-            grass2.Defense = 20;
-            grass2.Speed = 2;
-            grass2.Level = 1;
-            grass2.Species = Type.Grass;
-            grass2.AttackArray[0] = poisonIvy;
-            grass2.AttackArray[1] = chrysanthemum;
-            grass2.AttackArray[2] = fallingBranch;
+            Animal grass2 = new Animal(75, 15, 20, 2, Type.Grass, 1, poisonIvy, chrysanthemum, fallingBranch);
 
             //Default Water Animals
-            Animal water1 = null;
-            water1.MaxHealth = 40;
-            water1.Health = water1.MaxHealth;
-            water1.Attack = 20;
-            water1.Defense = 8;
-            water1.Speed = 6;
-            water1.Level = 1;
-            water1.Species = Type.Water;
-            water1.AttackArray[0] = splash;
-            water1.AttackArray[1] = sprinkler;
-            water1.AttackArray[2] = dirtyWater;
+            Animal water1 = new Animal(40, 20, 8, 6, Type.Water, 1, splash, sprinkler, dirtyWater);
 
-            Animal water2 = null;
-            water2.MaxHealth = 60;
-            water2.Health = water2.MaxHealth;
-            water2.Attack = 17;
-            water2.Defense = 22;
-            water2.Speed = 3;
-            water2.Level = 1;
-            water2.Species = Type.Water;
-            water2.AttackArray[0] = absorb;
-            water2.AttackArray[1] = splash;
-            water2.AttackArray[2] = sprinkler;
+            Animal water2 = new Animal(60, 17, 22, 3, Type.Water, 1, absorb, splash, sprinkler);
 
             //Default Earth Animals
-            Animal earth1 = null;
-            earth1.MaxHealth = 100;
-            earth1.Health = earth1.MaxHealth;
-            earth1.Attack = 5;
-            earth1.Defense = 25;
-            earth1.Speed = 1;
-            earth1.Level = 1;
-            earth1.Species = Type.Earth;
-            earth1.AttackArray[0] = mudBath;
-            earth1.AttackArray[1] = sandyWind;
-            earth1.AttackArray[2] = pelt;
+            Animal rock1 = new Animal(100, 5, 25, 1, Type.Rock, 1, mudBath, sandyWind, pelt);
 
-            Animal earth2 = null;
-            earth2.MaxHealth = 90;
-            earth2.Health = earth2.MaxHealth;
-            earth2.Attack = 7;
-            earth2.Defense = 27;
-            earth2.Speed = 1;
-            earth2.Level = 1;
-            earth2.Species = Type.Earth;
-            earth2.AttackArray[0] = sandyWind;
-            earth2.AttackArray[1] = pelt;
-            earth2.AttackArray[2] = bury;
+            Animal rock2 = new Animal(90, 7, 27, 1, Type.Rock, 1, sandyWind, pelt, bury);
 
             //Default Fire Animals
-            Animal fire1 = null;
-            fire1.MaxHealth = 20;
-            fire1.Health = fire1.MaxHealth;
-            fire1.Attack = 30;
-            fire1.Defense = 5;
-            fire1.Speed = 8;
-            fire1.Level = 1;
-            fire1.Species = Type.Fire;
-            fire1.AttackArray[0] = singe;
-            fire1.AttackArray[1] = sauna;
-            fire1.AttackArray[2] = sparkler;
+            Animal fire1 = new Animal(20, 30, 5, 8, Type.Fire, 1, singe, sauna, sparkler);
 
-            Animal fire2 = null;
-            fire2.MaxHealth = 25;
-            fire2.Health = fire2.MaxHealth;
-            fire2.Attack = 32;
-            fire2.Defense = 4;
-            fire2.Speed = 10;
-            fire2.Level = 1;
-            fire2.Species = Type.Fire;
-            fire2.AttackArray[0] = singe;
-            fire2.AttackArray[1] = smog;
-            fire2.AttackArray[2] = sparkler;
+            Animal fire2 = new Animal(25, 32, 4, 10, Type.Fire, 1, singe, smog, sparkler);
 
             //Default Flying Animals
-            Animal flying1 = null;
-            flying1.MaxHealth = 40;
-            flying1.Health = flying1.MaxHealth;
-            flying1.Attack = 18;
-            flying1.Defense = 15;
-            flying1.Speed = 10;
-            flying1.Level = 1;
-            flying1.Species = Type.Flying;
-            flying1.AttackArray[0] = groom;
-            flying1.AttackArray[1] = swoop;
-            flying1.AttackArray[2] = peck;
+            Animal air1 = new Animal(40, 18, 15, 10, Type.Air, 1, groom, swoop, peck);
 
-            Animal flying2 = null;
-            flying2.MaxHealth = 45;
-            flying2.Health = flying2.MaxHealth;
-            flying2.Attack = 22;
-            flying2.Defense = 18;
-            flying2.Speed = 11;
-            flying2.Level = 1;
-            flying2.Species = Type.Flying;
-            flying2.AttackArray[0] = showOff;
-            flying2.AttackArray[1] = swoop;
-            flying2.AttackArray[2] = peck;
+            Animal air2 = new Animal(45, 22, 18, 11, Type.Air, 1, showOff, swoop, peck);
 
-            Animal[] defaultAnimals = { grass1, grass2, earth1, earth2, fire1, fire2, water1, water2, flying1, flying2 };
+            Animal[] defaultAnimals = { grass1, grass2, rock1, rock2, fire1, fire2, water1, water2, air1, air2 };
 
         }

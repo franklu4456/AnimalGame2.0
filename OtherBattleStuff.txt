@@ -1,50 +1,101 @@
-/// <summary>
-        /// Method to switch the players animal
+        /// <summary>
+        /// Switch the player's animal
         /// </summary>
         /// <param name="roster">The player's roster</param>
-        /// <param name="selectedAnimal">The animal that was selected</param>
+        /// <param name="selected">The animal that was selected</param>
         /// <returns>The updated roster</returns>
-        public List<Animal> SwitchPlayerAnimal(List<Animal> roster, Animal selectedAnimal)
+        public List<Animal> SwitchPlayerAnimal(List<Animal> roster, int selected)
         {
-            // Check if the animal was selected is not fainted
-            if (selectedAnimal.HasFainted == false)
+            // Get the current animal
+            Animal current = roster.First();
+
+            // Remove that from the roster
+            roster.Remove(current);
+
+            // Create an array to temporarily holy the remaining 2
+            Animal[] tempRoster = new Animal[2];
+
+            // Create counter
+            int count = 0;
+
+            // Put the remaining 2 animals into the array and remove from the roster,
+            // roster is now empty
+            foreach (Animal x in roster)
             {
-                // Create a temporary roster
-                List<Animal> tempRoster = new List<Animal>();
-
-                // Put the animal that was selected at the front
-                tempRoster.Add(selectedAnimal);
-
-                // Remove the selected animal from original roster
-                roster.Remove(selectedAnimal);
-
-                // Put other 2 animals in temporary roster
-                // and remove from original
-                foreach (Animal x in roster)
-                {
-                    tempRoster.Add(x);
-                    roster.Remove(x);
-                }
-
-                // Copy order of temp roster to the original roster
-                roster = tempRoster;
-
-                // Return the original roster
-                return roster;
+                tempRoster[count] = x;
+                roster.Remove(x); 
+                count++;
             }
 
-            // If the selected animal is fainted
-            else 
-            {
-                // Display 'repick' message
-                message = "That animal has fainted, please select another.";
+            // Put the animal that was selected at the front of the new roster
+            roster.Add(tempRoster[selected]);
 
-                // Return the roster as it is
-                return roster;
+            // Add the animal that was not selected and the animal 
+            // that WAS the one in battle
+            if (selected == 0)
+            {
+                roster.Add(tempRoster[1]);
+                roster.Add(current);
             }
+            else if (selected == 1)
+            {
+                roster.Add(tempRoster[0]);
+                roster.Add(current);
+            }
+
+            // Return the update roster
+            return roster;
         }
+        
+        /// <summ        /// <summary>
+        /// Switch the player's animal
+        /// </summary>
+        /// <param name="roster">The player's roster</param>
+        /// <param name="selected">The animal that was selected</param>
+        /// <returns>The updated roster</returns>
+        public List<Animal> SwitchPlayerAnimal(List<Animal> roster, int selected)
+        {
+            // Get the current animal
+            Animal current = roster.First();
 
-        /// <summary>
+            // Remove that from the roster
+            roster.Remove(current);
+
+            // Create an array to temporarily holy the remaining 2
+            Animal[] tempRoster = new Animal[2];
+
+            // Create counter
+            int count = 0;
+
+            // Put the remaining 2 animals into the array and remove from the roster,
+            // roster is now empty
+            foreach (Animal x in roster)
+            {
+                tempRoster[count] = x;
+                roster.Remove(x); 
+                count++;
+            }
+
+            // Put the animal that was selected at the front of the new roster
+            roster.Add(tempRoster[selected]);
+
+            // Add the animal that was not selected and the animal 
+            // that WAS the one in battle
+            if (selected == 0)
+            {
+                roster.Add(tempRoster[1]);
+                roster.Add(current);
+            }
+            else if (selected == 1)
+            {
+                roster.Add(tempRoster[0]);
+                roster.Add(current);
+            }
+
+            // Return the update roster
+            return roster;
+        }
+        
         /// Method to switch the enemy's current animal (when fainted)
         /// </summary>
         /// <param name="roster">The enemy's roster</param>

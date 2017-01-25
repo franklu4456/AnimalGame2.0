@@ -1,0 +1,176 @@
+private void btnFight_Click(object sender, EventArgs e)
+        {
+            Animal current = p1.Roster.First();
+            lblAttack1.Text = current.AttackArray[0].ToString();
+            lblAttack2.Text = current.AttackArray[1].ToString();
+            lblAttack3.Text = current.AttackArray[2].ToString();
+            pnlAttacks.Visible = true;
+        }
+
+        private void btnInv_Click(object sender, EventArgs e)
+        {
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Attack)
+                {
+                    lblItem1.Text = x.Name + " Increases attack by: " + x.StatNumber;
+                    Item atk = x;
+                }
+                else if (x.StatEffect == Stat.Defense)
+                {
+                    lblItem2.Text = x.Name + " Increases defense by: " + x.StatNumber;
+                    Item def = x;
+                }
+                else if (x.StatEffect == Stat.Speed)
+                {
+                    lblItem3.Text = x.Name + " Increases speed by: " + x.StatNumber;
+                }
+                else if (x.StatEffect == Stat.Heal)
+                {
+                    lblItem4.Text = x.Name + " Heals animal by: " + x.StatNumber;
+                }
+                else if (x.StatEffect == Stat.MaxHeal)
+                {
+                    lblItem5.Text = x.Name + " Heals animal to full.";
+                }
+                else if (x.StatEffect == Stat.Catch)
+                {
+                    lblItem6.Text = x.Name + " Catches animals.";
+                }
+            }
+        }
+
+        private void btnAnimal_Click(object sender, EventArgs e)
+        {
+            Animal[] tempRoster = new Animal[3];
+            int count = 0;
+            foreach (Animal x in p1.Roster)
+            {
+                tempRoster[count] = x;
+            }
+            lblAnimal1.Text = tempRoster[0].Species.ToString() + tempRoster[0].Health.ToString() + "/" + tempRoster[0].MaxHealth.ToString() + tempRoster[0].Attack.ToString() + tempRoster[0].Defense.ToString() + tempRoster[0].Speed.ToString();
+
+            lblAnimal1.Text = tempRoster[1].Species.ToString() + tempRoster[1].Health.ToString() + "/" + tempRoster[1].MaxHealth.ToString() + tempRoster[1].Attack.ToString() + tempRoster[1].Defense.ToString() + tempRoster[1].Speed.ToString();
+
+            lblAnimal1.Text = tempRoster[2].Species.ToString() + tempRoster[2].Health.ToString() + "/" + tempRoster[2].MaxHealth.ToString() + tempRoster[2].Attack.ToString() + tempRoster[2].Defense.ToString() + tempRoster[2].Speed.ToString();
+
+            pnlAnimals.Visible = true;
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            battle.Run(battle);
+        }
+
+        private void btnExitAnimals_Click(object sender, EventArgs e)
+        {
+            pnlAnimals.Visible = false;
+        }
+
+        private void btnSwitch1_Click(object sender, EventArgs e)
+        {
+            battle.SwitchPlayerAnimal(p1.Roster,0);
+        }
+
+        private void btnSwitch2_Click(object sender, EventArgs e)
+        {
+            battle.SwitchPlayerAnimal(p1.Roster, 1);
+        }
+
+        private void btnAttack1_Click(object sender, EventArgs e)
+        {
+            battle.Fight(1);
+        }
+
+        private void btnAttack2_Click(object sender, EventArgs e)
+        {
+            battle.Fight(2);
+        }
+
+        private void btnAttack3_Click(object sender, EventArgs e)
+        {
+            battle.Fight(3);
+        }
+
+        private void btnExitBInv_Click(object sender, EventArgs e)
+        {
+            pnlBattleInv.Visible = false;
+        }
+
+        private void btnUseItem1_Click(object sender, EventArgs e)
+        {
+            Item used=null;
+            foreach(Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Attack)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedAtkBoost(p1.Roster.First(), used);
+        }
+
+        private void btnUseItem2_Click(object sender, EventArgs e)
+        {
+            Item used = null;
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Defense)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedDefBoost(p1.Roster.First(), used);
+        }
+
+        private void btnUseItem3_Click(object sender, EventArgs e)
+        {
+            Item used = null;
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Speed)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedSpeedBoost(p1.Roster.First(), used);
+        }
+
+        private void btnUsedItem4_Click(object sender, EventArgs e)
+        {
+            Item used = null;
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Heal)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedHeal(p1.Roster.First(), used);
+        }
+
+        private void btnUsedItem5_Click(object sender, EventArgs e)
+        {
+            Item used = null;
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.MaxHeal)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedMaxHeal(p1.Roster.First(), used);
+        }
+
+        private void btnUsedItem6_Click(object sender, EventArgs e)
+        {
+            Item used = null;
+            foreach (Item x in p1.Items)
+            {
+                if (x.StatEffect == Stat.Catch)
+                {
+                    used = x;
+                }
+            }
+            battle.UsedNet(used, battle.EnemyAnimals.First(), battle.IsWild, p1.Roster);
+        }

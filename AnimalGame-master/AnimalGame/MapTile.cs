@@ -13,4 +13,5 @@ public enum MapTile
     Animal,
     StartLocation,
     EndLocation,
+    CantWalk
 }

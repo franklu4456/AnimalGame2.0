@@ -16,131 +16,116 @@ namespace AnimalGame
 {
     class World
     {
-
+        //set the default level of the player to 1
         private int level = 1;
+        //variable holds the maptile of the 
         private MapTile[,] _map;
-
+        //variable stores the player
         private Player _P1;
-
+        
+        /// <summary>
+        /// sets the default animal information
+        /// </summary>
+        /// <returns>the default animal array</returns>
+        /// <summary>
+        /// The method to create default attacks and an array of default animals
+        /// </summary>
+        /// <returns>The array of default animals</returns>
         public Animal[] SetAnimalStuff()
         {
             //Default Water Attacks
-            Attack dirtyWater = null;
-            dirtyWater.Effect = AttackEffect.EnemyStatDebuff;
-            dirtyWater.AttackType = Type.Water;
+            //With stat change attacks and damage attacks
+            Attack dirtyWater = new StatChangeAttack(Type.Water, AttackEffect.EnemyStatDebuff, Stat.Defense, "Dirty Water");
 
-            Attack absorb = null;
-            absorb.Effect = AttackEffect.PlayerStatBuff;
-            absorb.AttackType = Type.Water;
+            Attack absorb = new StatChangeAttack(Type.Water, AttackEffect.PlayerStatBuff, Stat.Heal, "Absorb");
 
-            Attack splash = null;
-            splash.Effect = AttackEffect.EnemyHealthDown;
-            splash.AttackType = Type.Water;
+            Attack splash = new DamageAttack(Type.Water, AttackEffect.EnemyHealthDown, 20, "Splash");
 
-            Attack sprinkler = null;
-            sprinkler.Effect = AttackEffect.EnemyHealthDown;
-            sprinkler.AttackType = Type.Water;
+            Attack sprinkler = new DamageAttack(Type.Water, AttackEffect.EnemyHealthDown, 15, "Sprinkler");
 
             //Default Earth Attacks
-            Attack sandyWind = null;
-            sandyWind.Effect = AttackEffect.EnemyStatDebuff;
-            sandyWind.AttackType = Type.Rock;
+            //With stat change attacks and damage attacks
+            Attack sandyWind = new StatChangeAttack(Type.Rock, AttackEffect.EnemyStatDebuff, Stat.Speed, "Sandy Wind");
 
-            Attack mudBath = null;
-            mudBath.Effect = AttackEffect.PlayerStatBuff;
-            mudBath.AttackType = Type.Rock;
+            Attack mudBath = new StatChangeAttack(Type.Rock, AttackEffect.PlayerStatBuff, Stat.Defense, "Mud Bath");
 
-            Attack pelt = null;
-            pelt.Effect = AttackEffect.EnemyHealthDown;
-            pelt.AttackType = Type.Rock;
+            Attack pelt = new DamageAttack(Type.Rock, AttackEffect.EnemyHealthDown, 12, "Pelt");
 
-            Attack bury = null;
-            bury.Effect = AttackEffect.EnemyHealthDown;
-            bury.AttackType = Type.Rock;
+            Attack bury = new DamageAttack(Type.Rock, AttackEffect.EnemyHealthDown, 25, "Bury");
 
             //Default Flying Attacks
-            Attack showOff = null;
-            showOff.Effect = AttackEffect.EnemyStatDebuff;
-            showOff.AttackType = Type.Air;
+            //With stat change attacks and damage attacks
+            Attack showOff = new StatChangeAttack(Type.Air, AttackEffect.EnemyStatDebuff, Stat.Attack, "Show Off");
 
-            Attack groom = null;
-            groom.Effect = AttackEffect.PlayerStatBuff;
-            groom.AttackType = Type.Air;
+            Attack groom = new StatChangeAttack(Type.Air, AttackEffect.PlayerStatBuff, Stat.Attack, "Groom");
 
-            Attack swoop = null;
-            swoop.Effect = AttackEffect.EnemyHealthDown;
-            swoop.AttackType = Type.Air;
+            Attack swoop = new DamageAttack(Type.Air, AttackEffect.EnemyHealthDown, 16, "Swoop");
 
-            Attack peck = null;
-            peck.Effect = AttackEffect.EnemyHealthDown;
-            peck.AttackType = Type.Air;
+            Attack peck = new DamageAttack(Type.Air, AttackEffect.EnemyHealthDown, 20, "Peck");
 
             //Default Fire Attacks
-            Attack smog = null;
-            smog.Effect = AttackEffect.EnemyStatDebuff;
-            smog.AttackType = Type.Fire;
+            //With stat change attacks and damage attacks
+            Attack smog = new StatChangeAttack(Type.Fire, AttackEffect.EnemyStatDebuff, Stat.Speed, "Smog");
 
-            Attack sauna = null;
-            sauna.Effect = AttackEffect.PlayerStatBuff;
-            sauna.AttackType = Type.Fire;
+            Attack sauna = new StatChangeAttack(Type.Fire, AttackEffect.PlayerStatBuff, Stat.Defense, "Sauna");
 
-            Attack singe = null;
-            singe.Effect = AttackEffect.EnemyHealthDown;
-            singe.AttackType = Type.Fire;
+            Attack singe = new DamageAttack(Type.Fire, AttackEffect.EnemyHealthDown, 22, "Singe");
 
-            Attack sparkler = null;
-            sparkler.Effect = AttackEffect.EnemyHealthDown;
-            sparkler.AttackType = Type.Fire;
+            Attack sparkler = new DamageAttack(Type.Fire, AttackEffect.EnemyHealthDown, 20, "Sparkler");
 
             //Default Grass Attacks
-            Attack poisonIvy = null;
-            poisonIvy.Effect = AttackEffect.EnemyStatDebuff;
-            poisonIvy.AttackType = Type.Grass;
+            //With stat change attacks and damage attacks
+            Attack poisonIvy = new StatChangeAttack(Type.Grass, AttackEffect.EnemyStatDebuff, Stat.Defense, "PoisonIvy");
 
-            Attack chrysanthemum = null;
-            chrysanthemum.Effect = AttackEffect.PlayerStatBuff;
-            chrysanthemum.AttackType = Type.Grass;
+            Attack chrysanthemum = new StatChangeAttack(Type.Grass, AttackEffect.PlayerStatBuff, Stat.Heal, "Chyrsanthemum");
 
-            Attack pricklyThorns = null;
-            pricklyThorns.Effect = AttackEffect.EnemyHealthDown;
-            pricklyThorns.AttackType = Type.Grass;
+            Attack pricklyThorns = new DamageAttack(Type.Grass, AttackEffect.EnemyHealthDown, 17, "Prickly Thorns");
 
-            Attack fallingBranch = null;
-            fallingBranch.Effect = AttackEffect.EnemyHealthDown;
-            fallingBranch.AttackType = Type.Grass;
+            Attack fallingBranch = new DamageAttack(Type.Grass, AttackEffect.EnemyHealthDown, 20, "Falling Branch");
 
             //Default animals
 
             //Default Grass Animals
+            //with one slightly stronger than the other
             Animal grass1 = new Animal(50, 20, 12, 5, Type.Grass, 1, pricklyThorns, fallingBranch, poisonIvy);
 
-            Animal grass2 = new Animal(75, 15, 20, 2, Type.Grass, 1, poisonIvy, chrysanthemum, fallingBranch);
+            Animal grass2 = new Animal(75, 15, 20, 2, Type.Grass, 2, poisonIvy, chrysanthemum, fallingBranch);
 
             //Default Water Animals
+            //with one slightly stronger than the other
             Animal water1 = new Animal(40, 20, 8, 6, Type.Water, 1, splash, sprinkler, dirtyWater);
 
-            Animal water2 = new Animal(60, 17, 22, 3, Type.Water, 1, absorb, splash, sprinkler);
+            Animal water2 = new Animal(60, 17, 22, 3, Type.Water, 2, absorb, splash, sprinkler);
 
             //Default Earth Animals
+            //with one slightly stronger than the other
             Animal rock1 = new Animal(100, 5, 25, 1, Type.Rock, 1, mudBath, sandyWind, pelt);
 
-            Animal rock2 = new Animal(90, 7, 27, 1, Type.Rock, 1, sandyWind, pelt, bury);
+            Animal rock2 = new Animal(90, 7, 27, 1, Type.Rock, 2, sandyWind, pelt, bury);
 
             //Default Fire Animals
+            //with one slightly stronger than the other
             Animal fire1 = new Animal(20, 30, 5, 8, Type.Fire, 1, singe, sauna, sparkler);
 
-            Animal fire2 = new Animal(25, 32, 4, 10, Type.Fire, 1, singe, smog, sparkler);
+            Animal fire2 = new Animal(25, 32, 4, 10, Type.Fire, 2, singe, smog, sparkler);
 
             //Default Flying Animals
+            //with one slightly stronger than the other
             Animal air1 = new Animal(40, 18, 15, 10, Type.Air, 1, groom, swoop, peck);
 
-            Animal air2 = new Animal(45, 22, 18, 11, Type.Air, 1, showOff, swoop, peck);
+            Animal air2 = new Animal(45, 22, 18, 11, Type.Air, 2, showOff, swoop, peck);
 
+            //Create the array of the default animals with their stats and attacks
             Animal[] defaultAnimals = { grass1, grass2, rock1, rock2, fire1, fire2, water1, water2, air1, air2 };
 
+            //Return the array of default animals
             return defaultAnimals;
         }
 
+        /// <summary>
+        /// sets the default enemy information
+        /// </summary>
+        /// <returns>returns an array of 5 different enemys</returns>
         public Player[] EnemyPlayerList()
         {
             List<Animal> tempEnemyAnimalList = new List<Animal>();
@@ -168,24 +153,49 @@ namespace AnimalGame
             return enemyPlayerList;
         }
 
-        public World(Player P1)
+        /// <summary>
+        /// constructor of the world class
+        /// sets the information and creates the world
+        /// </summary>
+        /// <param name="P1">passes through a player
+        /// references them and changes their roster</param>
+        public World( ref Player P1)
         {
+            //first time game
+            //set up the map for the first time
             _map = SetupGame();
+            //random number generator to randomly select
+            // the player's first animal
+            Random numberGenerator = new Random();
+            int number = numberGenerator.Next(0, SetAnimalStuff().Length);
+            //creates an animal list to put into this
+            //adds the randomly selected animal to the player's roster
+            List<Animal> tempAnimals = new List<Animal>();
+            tempAnimals.Add(SetAnimalStuff()[number]);
+            P1.Roster = tempAnimals;
+           
             _P1 = P1;
         }
 
+        /// <summary>
+        /// returns/ displays the maptile's 2d array
+        /// </summary>
         public MapTile[,] Map
         {
             get
             {
                 return _map;
             }
+            //allows the map to be set
             set
             {
                 _map = value;
             }
         }
 
+        /// <summary>
+        /// returns the player of the game
+        /// </summary>
         public Player P1
         {
             get
@@ -194,50 +204,128 @@ namespace AnimalGame
             }
         }
 
+        /// <summary>
+        /// retrieves the row that is infront of the player
+        /// Uses facing direction to find the rog
+        /// </summary>
+        /// <param name="P1">Passes through the player</param>
+        /// <returns>returns the row number that's infront of the player</returns>
         private int GetRowInFront(Player P1)
         {
             int row = P1.Row;
             if (P1.FacingDirection == Direction.Up)
             {
-                row = P1.Row - 1;
+                if (P1.Row - 1 < 0)
+                {
+                    row = P1.Row;
+                }
+                else
+                {
+                    row = P1.Row - 1;
+                }
             }
             else if (P1.FacingDirection == Direction.Down)
             {
+                if (P1.Row + 1 > _map.GetLongLength(1))
+                {
+                    row = _map.GetLength(0);
+                }
                 row = P1.Row + 1;
             }
 
             return row;
         }
 
+        /// <summary>
+        /// Gets the row infront of the player
+        /// </summary>
+        /// <param name="P1">Passes through the player's information</param>
+        /// <returns>returns the integer that the player is in</returns>
         private int GetColumnInFront(Player P1)
         {
             int column = P1.Column;
             if (P1.FacingDirection == Direction.Left)
             {
-                column = P1.Column - 1;
+                if (P1.Column-1 < 0)
+                {
+                    column= 0;
+                }
+                else
+                {
+                    column = P1.Column - 1;
+                }
             }
             else if (P1.FacingDirection == Direction.Right)
             {
-                column = P1.Column + 1;
+                if (P1.Column + 1 > _map.GetLength(0))
+                {
+                    column = P1.Column-1;
+                }
+                else
+                {
+                    column = P1.Column + 1;
+                }
             }
             return column;
         }
 
+        /// <summary>
+        /// controls the movement of the player
+        /// allows the player to move
+        /// </summary>
+        /// <param name="P1">Passes through the player
+        /// Checks the tile infront of the player
+        /// and sees if you can move</param>
         public void Move(Player P1)
         {
             P1.Move(TileInFront(P1));
         }
 
+        /// <summary>
+        /// using the user's row and column 
+        /// checks the tile that's infront of the player
+        /// </summary>
+        /// <param name="P1">Passes through the player of the game</param>
+        /// <returns>returns the maptile enumeration
+        /// that's infront of the player</returns>
         public MapTile TileInFront(Player P1)
         {
-            return (_map[GetColumnInFront(P1), GetRowInFront(P1)]);
+            if (GetColumnInFront(P1) <= 0 && P1.FacingDirection == Direction.Right)
+            {
+                return MapTile.CantWalk;
+            }
+            else if (GetRowInFront(P1) <= 0&&P1.FacingDirection==Direction.Up)
+            {
+                return MapTile.CantWalk;
+            }
+            else if (GetRowInFront(P1) >= _map.GetLength(0) && P1.FacingDirection == Direction.Down)
+            {
+                return MapTile.CantWalk;
+            }
+            else if (GetColumnInFront(P1) >= _map.GetLength(1) && P1.FacingDirection == Direction.Left)
+            {
+                return MapTile.CantWalk;
+            }
+            else
+            {
+                return (_map[GetColumnInFront(P1), GetRowInFront(P1)]);
+            }
         }
 
+        /// <summary>
+        /// sets up the start of the game:
+        /// sets the game's map up
+        /// reads the resource file for the different
+        /// setups for each level
+        /// </summary>
+        /// <returns> 2D array of the map</returns>
         public MapTile[,] SetupGame()
         {
+            //checks what level the player's on
             if (level == 1)
             {
                 string stageOneGrid = Properties.Resources.Stage1;
+                //calls the map setup subprogram
                 MapTile[,] gridLevelOne = SetMap(stageOneGrid);
                 return gridLevelOne;
             }
@@ -255,50 +343,84 @@ namespace AnimalGame
             }
         }
 
+        /// <summary>
+        /// sets up the games map
+        /// retrieves the text files from the resources
+        /// and transfers it into a char array
+        /// to later be placed into a 2D maptile array
+        /// </summary>
+        /// <param name="stageGrid">the resources text file for the map</param>
+        /// <returns>a 2D array for the maptile</returns>
         public MapTile[,] SetMap(string stageGrid)
         {
+            //split the stageGrid and save it in an array
             string[] num = stageGrid.Split(new char[] {  '\r','\n' });
             string numbers = null;
+            //loops and places the previous array into one string
             for (int i = 0; i < num.Length; i++)
             {
                 numbers = numbers + num[i];
             }
 
+            //creates a character array for all the characters/ numbers
+            //creates an integer array to store all of the information
             char[] val = numbers.ToCharArray();
             int[] numberValues = new int[val.Length];
 
+            //loops till the end of the array,
+            //converts all the characters to integers
             for (int i = 0; i < val.Length; i++)
             {
                 string temp;
                 int number;
+                //stores the values into a temporary variable 
                 temp = val[i].ToString();
+                //changes the string into an integer
                 int.TryParse(temp, out number);
+                //stores the integer into a number array
                 numberValues[i] = number;
             }
+            //creates a 2D array to store the values of the map
             MapTile[,] map = new MapTile[18, 12];
 
+            //counter stores the value fo the index of the array
             int counter = 0;
+            //loops through the row and column of the array
+            //sets the values for the 2D array
             for (int y = 0; y < map.GetLongLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(0); x++)
                 {
+                    //checks if the number value array
+                    //is out of bounds
                     if (counter < 216)
                     {
+                        //converts the integers into a maptile 
+                        //enumeration and stores it into the 2D array
                         map[x, y] = (MapTile)numberValues[counter];
+                        //adds to the counter
                         counter++;
                     }
+                    //if it surpasses the index of the array
+                    //break the loop
                     else
                     {
                         break;
                     }
                 }
             }
+            //return a 2D array
             return map;
         }
 
-        //FIX
+        /// <summary>
+        /// Saves a player's progress in the game
+        /// only saves the level, money, animals and items
+        /// </summary>
+        /// <param name="P1">pass through the player to save</param>
         public void SaveGame(Player P1)
         {
+            //creates or overrides the text file to save a game
             using (StreamWriter file = new StreamWriter("saveGame.txt"))
             {
                 //save the player's level and money
@@ -316,10 +438,13 @@ namespace AnimalGame
                     foreach (Attack j in x.AttackArray)
                     {
                         int damageAttackTemp = 0;
+                        //checks if the attack is a damage attack or a stat attack
+                        //saves accordingly
                         if (j.IsDamageAttack == true)
                         {
                             damageAttackTemp = 1;
                             DamageAttack temp = (DamageAttack)j;
+                            //saves and writes all of the animal's attacks
                             file.WriteLine("4" + "\r\n" + j.AttackType.ToString() + " " + j.Effect.ToString() + " " + j.Name + " " + damageAttackTemp.ToString() + temp.Damage.ToString());
                         }
                         else
@@ -330,10 +455,16 @@ namespace AnimalGame
                         }
                     }
                 }
+                //when it's done saving
+                //close the file
                 file.Close();
             }
         }
 
+        /// <summary>
+        /// loads a saved game from an existing file
+        /// </summary>
+        /// <returns>returns a player</returns>
         public Player LoadGame()
         {
             //check if the file exists
@@ -415,40 +546,59 @@ namespace AnimalGame
                             //add it to the temp item list
                             tempItems.Add(tempItemToAddToList);
                         }
+                        //checks if the information is about the player's animals
                         else if (info == "3")
                         {
+                            //reads the information on that line and saves it in a file
                             info = file.ReadLine();
+                            //splits the information into a character array
                             string[] playerAnimalInfo = info.Split(new char[] { ' ' });
+                            //variable holds the string to convert to an integer
                             string tempStringToInteger;
                             int tempNumber;
 
-
+                            //saves the string from the player animal info into the string
+                            //converts and retrieves the player's species
                             tempStringToInteger = playerAnimalInfo[1];
                             int.TryParse(tempStringToInteger, out tempNumber);
                             animalSpecies = (Type)tempNumber;
 
+                            //finds the animal's level from the text file
+                            //saves converts and stores the text into a integer 
                             tempStringToInteger = playerAnimalInfo[2];
                             int.TryParse(tempStringToInteger, out animalLevel);
+                            //finds the animal's speed and converts it into an integer 
+                            //to be stored
                             tempStringToInteger = playerAnimalInfo[3];
                             int.TryParse(tempStringToInteger, out animalSpeed);
+                            //finds the animal's max health and current health
+                            //converts from a string to an integer and stores it into 
+                            //a temp array
                             tempStringToInteger = playerAnimalInfo[4];
                             int.TryParse(tempStringToInteger, out animalMaxHealth);
                             tempStringToInteger = playerAnimalInfo[5];
                             int.TryParse(tempStringToInteger, out animalCurrentHealth);
 
+                            //finds the anima's amount of attack and defense 
+                            //converts from a string to an integer and stores it
+                            //into a temp array
                             tempStringToInteger = playerAnimalInfo[6];
                             int.TryParse(tempStringToInteger, out tempNumber);
                             animalAttackAmount = tempNumber;
-
                             tempStringToInteger = playerAnimalInfo[7];
                             int.TryParse(tempStringToInteger, out tempNumber);
                             animalDefenseAmount = tempNumber;
                         }
+                        //checks if the information is for attack
                         else if (info == "4")
                         {
+                            //read the next line and store the information in the variable
                             info = file.ReadLine();
+                            //splits the informaton in the string by a space
                             string[] animalAttacks = info.Split(new char[] { ' ' });
 
+                            //creates local variables to temp. store
+                            //all the information to create an attack
                             Type attackTypeTemp;
                             AttackEffect attackEffectTemp;
                             string attackNameTemp;
@@ -457,16 +607,23 @@ namespace AnimalGame
                             string tempStringToInteger;
                             int tempNumbers;
 
+                            //converts the first part of the saved file into 
+                            //an integer, to be casted into a type of the attack
                             tempStringToInteger = animalAttacks[1];
                             int.TryParse(tempStringToInteger, out tempNumbers);
                             attackTypeTemp = (Type)tempNumbers;
 
+                            //converts the first part of the saved file into 
+                            //an integer, to be casted into an effect fromt he attack
                             tempStringToInteger = animalAttacks[2];
                             int.TryParse(tempStringToInteger, out tempNumbers);
                             attackEffectTemp = (AttackEffect)tempNumbers;
-
+                            //stores the name of the attack
                             attackNameTemp = animalAttacks[3];
-
+                            
+                            //store the information into a temp string to convert to a variable
+                            //converts it into a integer and states if it is a damage attack or a stat change effect
+                            //declares and creates the attack according to this information
                             tempStringToInteger = animalAttacks[4];
                             int.TryParse(tempStringToInteger, out tempNumbers);
                             if (tempNumbers == 1)
@@ -480,6 +637,7 @@ namespace AnimalGame
                             }
                             else
                             {
+                                //stores the informatation into the temp string and converts it into a stat enumeration
                                 tempStringToInteger = animalAttacks[5];
                                 int.TryParse(tempStringToInteger, out tempNumbers);
                                 statAttackAmountTemp = (Stat)tempNumbers;
@@ -488,6 +646,9 @@ namespace AnimalGame
                                 tempAnimalAttacks.Enqueue(tempAttack);
                             }
                         }
+                        //when the animal has created 3 attacks
+                        //add all three attacks to a list of the animals attacks
+                        //create the animal accordingly
                         if (tempAnimalAttacks.Count == 3)
                         {
                             Attack attack1 = tempAnimalAttacks.Dequeue();
@@ -498,6 +659,7 @@ namespace AnimalGame
                             tempAnimals.Add(tempAnimalToAddToList);
                         }
                     }
+                    //close the file
                     file.Close();
                 }
                 //variable will hold the saved player
@@ -507,6 +669,8 @@ namespace AnimalGame
             }
             else
             {
+                //if all the information doesn't work
+                //return nothing
                 return null;
 
             }

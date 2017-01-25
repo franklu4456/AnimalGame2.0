@@ -22,13 +22,6 @@ namespace AnimalGame
         private List<Animal> _roster;
         private List<Item> _items;
         private int _level;
-        
-        public Player()
-        {
-            _money = 1000;
-
-            Random numberGenerator = new Random();
-        }
 
         public bool InBattle
         {
@@ -41,9 +34,14 @@ namespace AnimalGame
                 _inBattle = value;
             }
         }
-
-        public Player(List<Animal>enemyAnimalList)
-            :this (0,enemyAnimalList,null,0)
+        public Player()
+        {
+            _money = 1000;
+            _level = 1;
+            _facingDirection = Direction.Up;
+        }
+        public Player(List<Animal>animalList)
+            :this (0,animalList,null,0)
         {
 
         }
@@ -138,7 +136,7 @@ namespace AnimalGame
 
         public bool Move(MapTile tile)
         {
-            if (tile != MapTile.Wall && tile != MapTile.Enemy &&  tile != MapTile.Shop && tile != MapTile.HealStn)
+            if (tile != MapTile.Wall && tile != MapTile.Enemy && tile != MapTile.Shop && tile != MapTile.HealStn && tile != MapTile.Animal&&tile!=MapTile.CantWalk)
             {
                 if (_facingDirection == Direction.Up)
                 {

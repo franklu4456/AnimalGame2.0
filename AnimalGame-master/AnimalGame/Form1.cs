@@ -18,27 +18,34 @@ namespace AnimalGame
 {
     public partial class Form1 : Form
     {
+        //variables store the
+        //creation of classes
+        //creates the world
         World theWorld;
-        Size tileSize;
+        //variabels stores the created player
         Player player;
+        //variable stores the created battle
         Battle battle;
+        //stores the created store class
         Store worldStore = new Store();
 
-
-        bool canPlayerMove = false;
-
+        //variable declares if the player can move
+        bool canPlayerMove = true;
+        //stores if any window is open
         bool windowOpen = false;
+        //stores is a menu panel is open
         bool menuOpen = false;
-
-        bool storeOpen = false;
 
         public Form1()
         {
             InitializeComponent();
+            //creates a player
             player = new Player();
-            World theWorld = new World(player);
+            //creates the world, through passing in the player
+            theWorld = new World(ref player);
+            //hides all the panels in the start of the game
             HideAllPanels();
-            
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -94,22 +101,11 @@ namespace AnimalGame
                     //save the game
                     theWorld.SaveGame(player);
                 }
-
-                else if (e.KeyCode == Keys.I)
-                {
-                    //state that the menu is now open
-                    menuOpen = true;
-                    //state that the player can't move
-                    canPlayerMove = false;
-                    //state that a window is open
-                    windowOpen = true;
-                    //call the subprogram to open the window
-                    OpenMenu();
-                }
                 else if (e.KeyCode == Keys.L)
                 {
+                    Player tempPlayer = theWorld.LoadGame();
                     //call the subprogram to load a new game
-                    theWorld = new World(theWorld.LoadGame());
+                    theWorld = new World(ref tempPlayer);
 
                 }
                 else if (e.KeyCode == Keys.A)
@@ -125,6 +121,17 @@ namespace AnimalGame
                     pnlMenu.Visible = false;
                     //show the player's animal
                     ShowAnimals();
+                }
+                else if (e.KeyCode == Keys.I)
+                {
+                    //state that the menu is now open
+                    menuOpen = true;
+                    //state that the player can't move
+                    canPlayerMove = false;
+                    //state that a window is open
+                    windowOpen = true;
+                    //call the subprogram to open the window
+                    OpenMenu();
                 }
             }
             //check if the store panels is visible
@@ -241,9 +248,8 @@ namespace AnimalGame
                     HideAllPanels();
                     canPlayerMove = true;
                 }
-                //SHIT THING
-                //problem
-                else if (windowOpen == true && battle.Win != null)
+
+                else if (windowOpen == true && battle.Status!=2)
                 {
                     HideAllPanels();
                 }
@@ -254,11 +260,11 @@ namespace AnimalGame
         {
             //SHIT THING
             //problem
-            if (battle.Win != null)
+            if (battle.Status != 3)
             {
                 pnlResults.Visible = true;
                 player.InBattle = false;
-                if (battle.Win == true)
+                if (battle.Status == 1)
                 {
                     lblBattleResults.Text = "WIN! \r\n Press ESC to exit the screen.";
                 }
@@ -295,13 +301,17 @@ namespace AnimalGame
         public void HideAllPanels()
         {
             pnlBattleOptions.Visible = false;
+
             pnlInventory.Visible = false;
             pnlMenu.Visible = false;
             pnlStore.Visible = false;
             pnlResults.Visible = false;
+
             pnlBattle.Visible = false;
             pnlBattleInv.Visible = false;
             pnlAttacks.Visible = false;
+            pnlAnimals.Visible = false;
+            pnlInterface.Visible=false;
         }
 
         /// <summary>
@@ -324,42 +334,53 @@ namespace AnimalGame
         public void OpenMenu()
         {
             pnlMenu.Visible = true;
+            lblMenuOptions.Visible = true;
+            lblMenuTitle.Visible = true;
             lblMenuOptions.Text = "Open Inventory:  Press O" + "\r\n" + "View Animals: Press A" + "\r\n" + "Save Game: Press S" + "\r\n" + "Load Game: Press L" + "\r\n" + "Exit Menu: Press esc";
         }
 
         public void OpenInventory()
         {
-            foreach (Item x in player.Items)
+            txtInventoryListOutGame.Visible = true;
+            pnlInventory.Visible = true;
+            if (player.Items.Count()>0)
             {
-                string temp = null;
-                temp = txtInventoryListOutGame.ToString();
-                string tempDescription;
+                foreach (Item x in player.Items)
+                {
+                    string temp = null;
+                    temp = txtInventoryListOutGame.ToString();
+                    string tempDescription;
 
-                if (x.StatEffect == Stat.Attack)
-                {
-                    tempDescription = "Increases Attack: " + x.StatNumber.ToString();
+                    if (x.StatEffect == Stat.Attack)
+                    {
+                        tempDescription = "Increases Attack: " + x.StatNumber.ToString();
+                    }
+                    else if (x.StatEffect == Stat.Defense)
+                    {
+                        tempDescription = "Increases Defense: " + x.StatNumber.ToString();
+                    }
+                    else if (x.StatEffect == Stat.Speed)
+                    {
+                        tempDescription = "Increases Speed: " + x.StatNumber.ToString();
+                    }
+                    else if (x.StatEffect == Stat.Heal)
+                    {
+                        tempDescription = "Increases Health: " + x.StatNumber.ToString();
+                    }
+                    else if (x.StatEffect == Stat.Catch)
+                    {
+                        tempDescription = "Catches wild animals";
+                    }
+                    else
+                    {
+                        tempDescription = "Brings the animal to max health";
+                    }
+                    txtInventoryListOutGame.Text = temp + x.Name + ":" + "\r\n" + tempDescription + "\r\n" + x.Quantity.ToString() + "\r\n";
                 }
-                else if (x.StatEffect == Stat.Defense)
-                {
-                    tempDescription = "Increases Defense: " + x.StatNumber.ToString();
-                }
-                else if (x.StatEffect == Stat.Speed)
-                {
-                    tempDescription = "Increases Speed: " + x.StatNumber.ToString();
-                }
-                else if (x.StatEffect == Stat.Heal)
-                {
-                    tempDescription = "Increases Health: " + x.StatNumber.ToString();
-                }
-                else if (x.StatEffect == Stat.Catch)
-                {
-                    tempDescription = "Catches wild animals";
-                }
-                else
-                {
-                    tempDescription = "Brings the animal to max health";
-                }
-                txtInventoryListOutGame.Text = temp + x.Name + ":" + "\r\n" + tempDescription + "\r\n" + x.Quantity.ToString() + "\r\n";
+            }
+            else
+            {
+                txtInventoryListOutGame.Text = "Inventory is empty";
             }
         }
 
@@ -369,6 +390,8 @@ namespace AnimalGame
         /// </summary>
         public void OpenStore()
         {
+            lblStoreList.Visible = true;
+            lblShopTitle.Visible = true;
             //create the world's store
             worldStore = new Store();
             //temporary string to store the information that was displayed by the label
@@ -432,10 +455,8 @@ namespace AnimalGame
             }
             else if (theWorld.TileInFront(player) == MapTile.Shop)
             {
-
                 windowOpen = true;
                 pnlStore.Visible = true;
-                storeOpen = true;
                 OpenStore();
 
             }
@@ -464,6 +485,8 @@ namespace AnimalGame
                 battle = new Battle(player.Roster, tempWildAnimal, player.Items, true);
             }
         }
+
+
 
 
         //FRANK
@@ -647,6 +670,8 @@ namespace AnimalGame
         //MERSHAB
         protected override void OnPaint(PaintEventArgs e)
         {
+            const int SPRITE_SIZE = 100;
+
             int startingX = 0;
             int startingY = 0;
 
@@ -659,37 +684,37 @@ namespace AnimalGame
                 {
                     RectangleF tempRectangle = new RectangleF((float)startingX, (float)startingY, TILE_HEIGHT, TILE_WIDTH);
 
-                    if (theWorld.Map[j, i] == MapTile.Animal)
+                    if (theWorld.Map[i, j] == MapTile.Animal)
                     {
                         e.Graphics.FillRectangle(Brushes.Orange, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.Enemy)
+                    else if (theWorld.Map[i, j] == MapTile.Enemy)
                     {
                         e.Graphics.FillRectangle(Brushes.Red, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.HealStn)
+                    else if (theWorld.Map[i, j] == MapTile.HealStn)
                     {
                         e.Graphics.FillRectangle(Brushes.Blue, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.Shop)
+                    else if (theWorld.Map[i, j] == MapTile.Shop)
                     {
                         e.Graphics.FillRectangle(Brushes.DarkGoldenrod, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.TallGrass)
+                    else if (theWorld.Map[i, j] == MapTile.TallGrass)
                     {
                         e.Graphics.FillRectangle(Brushes.DarkOliveGreen, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.Filler1)
+                    else if (theWorld.Map[i, j] == MapTile.Filler1 || theWorld.Map[i, j] == MapTile.StartLocation || theWorld.Map[i, j] == MapTile.EndLocation)
                     {
                         e.Graphics.FillRectangle(Brushes.LightGreen, tempRectangle);
                     }
-                    else if (theWorld.Map[j, i] == MapTile.Filler2)
+                    else if (theWorld.Map[i, j] == MapTile.Filler2)
                     {
                         e.Graphics.FillRectangle(Brushes.SandyBrown, tempRectangle);
                     }
 
 
-                    if (player.Column == j && player.Row == i)
+                    if (player.Column == i && player.Row == j)
                     {
                         e.Graphics.FillRectangle(Brushes.Black, tempRectangle);
                     }
@@ -697,13 +722,18 @@ namespace AnimalGame
                     startingX += TILE_WIDTH;
                 }
 
+                startingX = 0;
+
                 startingY += TILE_HEIGHT;
             }
-
+            if (player.InBattle)
+            {
+                RectangleF enemySprite = new RectangleF((float)ClientSize.Width - SPRITE_SIZE, (float)0, (float)SPRITE_SIZE, (float)SPRITE_SIZE);
+                RectangleF playerSprite = new RectangleF((float)0, (float)((ClientSize.Height / 2) - SPRITE_SIZE), (float)SPRITE_SIZE, (float)SPRITE_SIZE);
+                e.Graphics.FillRectangle(Brushes.Aqua, enemySprite);
+                e.Graphics.FillRectangle(Brushes.Gold, playerSprite);
+            }
             base.OnPaint(e);
         }
     }
-
 }
-
-  

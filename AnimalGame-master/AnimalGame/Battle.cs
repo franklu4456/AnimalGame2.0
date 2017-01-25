@@ -1,4 +1,9 @@
-﻿using System;
+﻿//Mershab Arafat and Frank Lu
+//January 24th, 2017
+//Battle Class
+//This class will handle all of the battling that goes on.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +25,8 @@ namespace AnimalGame
 
         //Booleans to store whether
         private bool _win, _isWild;
+
+        private int _status;
 
         public Queue<string> messages = new Queue<string>();
 
@@ -95,12 +102,25 @@ namespace AnimalGame
             }
         }
 
+        public int Status
+        {
+            get
+            {
+                return Status;
+            }
+            set
+            {
+                Status = value;
+            }
+        }
+
         public Battle(List<Animal> playerAnimals, List<Animal> enemyAnimals, List<Item> playerItems, bool IsWild)
         {
             PlayerAnimals = playerAnimals;
             EnemyAnimals = enemyAnimals;
             PlayerItems = playerItems;
             _isWild = IsWild;
+            Status = 2;
         }
 
 
@@ -150,7 +170,7 @@ namespace AnimalGame
                         PlayerAnimals.First().Level += 1;
                         //If the enemy has no more animals that can fight then the player has won.
                         if (!AvailableAnimals(EnemyAnimals))
-                            Win = true;
+                            Status = 1;
 
                     }
                     //If the recieving animal would survive the impending attack then continue.
@@ -174,15 +194,17 @@ namespace AnimalGame
                             //Calculate the amount of damage the enemy's attack will inflict
                             int enemyDamageCalculation = (int)(enemyDamageAttack.Damage * (EnemyAnimals.First().Attack * 0.2) - PlayerAnimals.First().Defense);
 
-                            messages.Enqueue(EnemyAnimals.First().Species.ToString() + "just attacked " + PlayerAnimals.First().Species.ToString() + "for " + enemyDamageCalculation + "damage");
+                            //Enqueue the message of what move the enemy used
                             messages.Enqueue(EnemyAnimals.First().Species.ToString() + "just used " + enemyDamageAttack.Name);
+                            //Enqueue the message that the enemy animal just attacked the player's animal for the damage calculated earlier.
+                            messages.Enqueue(EnemyAnimals.First().Species.ToString() + "just attacked " + PlayerAnimals.First().Species.ToString() + "for " + enemyDamageCalculation + "damage");
 
-
+                            //If the plyayer will not survive 
                             if (PlayerAnimals.First().Health <= enemyDamageCalculation)
                             {
                                 PlayerAnimals.First().Health -= enemyDamageCalculation;
                                 if (AvailableAnimals(PlayerAnimals))
-                                    Win = false;
+                                    Status = 0;
                             }
                             else
                                 PlayerAnimals.First().Health -= enemyDamageCalculation;
@@ -299,8 +321,9 @@ namespace AnimalGame
                         if (PlayerAnimals.First().Health <= enemyDamageCalculation)
                         {
                             PlayerAnimals.First().Health -= enemyDamageCalculation;
+                            messages.Enqueue(PlayerAnimals.First().Species.ToString() + " has fainted");
                             if (!AvailableAnimals(PlayerAnimals))
-                                Win = false;
+                                Status = 0;
 
                         }
                         else
@@ -372,9 +395,10 @@ namespace AnimalGame
 
                     if (PlayerAnimals.First().Health <= enemyDamageCalculation)
                     {
+                        messages.Enqueue(PlayerAnimals.First().Species.ToString() + " has fainted");
                         PlayerAnimals.First().Health -= enemyDamageCalculation;
                         if (!AvailableAnimals(PlayerAnimals))
-                            Win = false;
+                            Status = 0;
 
                     }
                     else
@@ -397,7 +421,7 @@ namespace AnimalGame
                                 EnemyAnimals.First().Health -= damageCalculation;
                                 PlayerAnimals.First().Level += 1;
                                 if (!AvailableAnimals(EnemyAnimals))
-                                    Win = true;
+                                    Status = 1;
                             }
                             else
                                 EnemyAnimals.First().Health -= damageCalculation;
@@ -497,7 +521,6 @@ namespace AnimalGame
                 }
             }
         }
-
 
         /// <summary>
         /// Switch the player's animal

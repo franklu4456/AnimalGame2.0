@@ -34,11 +34,12 @@ namespace AnimalGame
                 _inBattle = value;
             }
         }
-        public Player()
+        public Player(List<Item>setUpItems)
         {
             _money = 1000;
             _level = 1;
-            _facingDirection = Direction.Up;
+            _facingDirection = Direction.Down;
+            _items = setUpItems;
         }
         public Player(List<Animal>animalList)
             :this (0,animalList,null,0)
@@ -140,19 +141,19 @@ namespace AnimalGame
             {
                 if (_facingDirection == Direction.Up)
                 {
-                    _column--;
+                    _row--;
                 }
                 else if (_facingDirection == Direction.Down)
                 {
-                    _column++;
+                    _row++;
                 }
                 else if (_facingDirection == Direction.Right)
                 {
-                    _row++;
+                    _column++;
                 }
                 else if (_facingDirection == Direction.Left)
                 {
-                    _row--;
+                    _column--;
                 }
                 return true;
             }

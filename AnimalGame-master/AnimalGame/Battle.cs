@@ -110,7 +110,7 @@ namespace AnimalGame
             }
             set
             {
-                Status = value;
+                _status = value;
             }
         }
 

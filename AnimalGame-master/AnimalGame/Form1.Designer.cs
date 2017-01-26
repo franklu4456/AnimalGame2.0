@@ -28,30 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlBattle = new System.Windows.Forms.Panel();
             this.pnlBattleOptions = new System.Windows.Forms.Panel();
             this.pnlInventory = new System.Windows.Forms.Panel();
+            this.lblInventoryTitle = new System.Windows.Forms.Label();
             this.txtInventoryListOutGame = new System.Windows.Forms.TextBox();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.lblMenuOptions = new System.Windows.Forms.Label();
             this.lblMenuTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnlStore = new System.Windows.Forms.Panel();
-            this.lblStoreList = new System.Windows.Forms.Label();
+            this.lblPurchased = new System.Windows.Forms.Label();
+            this.txtStoreList = new System.Windows.Forms.TextBox();
             this.lblShopTitle = new System.Windows.Forms.Label();
             this.pnlResults = new System.Windows.Forms.Panel();
             this.lblBattleResults = new System.Windows.Forms.Label();
+            this.pnlAttacks = new System.Windows.Forms.Panel();
+            this.lblAttack3 = new System.Windows.Forms.Label();
+            this.lblAttack2 = new System.Windows.Forms.Label();
+            this.lblAttack1 = new System.Windows.Forms.Label();
+            this.btnExitAttacks = new System.Windows.Forms.Button();
+            this.pnlAnimals = new System.Windows.Forms.Panel();
             this.btnSwitch2 = new System.Windows.Forms.Button();
             this.btnSwitch1 = new System.Windows.Forms.Button();
             this.btnExitAnimals = new System.Windows.Forms.Button();
             this.lblAnimal3 = new System.Windows.Forms.Label();
-            this.lblAnimal1 = new System.Windows.Forms.Label();
-            this.pnlAnimals = new System.Windows.Forms.Panel();
             this.lblAnimal2 = new System.Windows.Forms.Label();
+            this.lblAnimal1 = new System.Windows.Forms.Label();
+            this.pnlBattleInv = new System.Windows.Forms.Panel();
             this.btnUsedItem6 = new System.Windows.Forms.Button();
             this.btnUsedItem5 = new System.Windows.Forms.Button();
             this.btnUsedItem4 = new System.Windows.Forms.Button();
-            this.pnlBattleInv = new System.Windows.Forms.Panel();
             this.btnUseItem3 = new System.Windows.Forms.Button();
             this.btnUseItem2 = new System.Windows.Forms.Button();
             this.btnUseItem1 = new System.Windows.Forms.Button();
@@ -69,29 +75,17 @@
             this.btnInv = new System.Windows.Forms.Button();
             this.btnAnimal = new System.Windows.Forms.Button();
             this.btnFight = new System.Windows.Forms.Button();
-            this.btnExitAttacks = new System.Windows.Forms.Button();
-            this.pnlAttacks = new System.Windows.Forms.Panel();
-            this.lblAttack3 = new System.Windows.Forms.Label();
-            this.lblAttack2 = new System.Windows.Forms.Label();
-            this.lblAttack1 = new System.Windows.Forms.Label();
+            this.lblPlayerMoney = new System.Windows.Forms.Label();
+            this.lblNotification = new System.Windows.Forms.Label();
             this.pnlInventory.SuspendLayout();
             this.pnlMenu.SuspendLayout();
             this.pnlStore.SuspendLayout();
             this.pnlResults.SuspendLayout();
+            this.pnlAttacks.SuspendLayout();
             this.pnlAnimals.SuspendLayout();
             this.pnlBattleInv.SuspendLayout();
             this.pnlInterface.SuspendLayout();
-            this.pnlAttacks.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlBattle
-            // 
-            this.pnlBattle.BackColor = System.Drawing.Color.Gray;
-            this.pnlBattle.Location = new System.Drawing.Point(438, 12);
-            this.pnlBattle.Name = "pnlBattle";
-            this.pnlBattle.Size = new System.Drawing.Size(495, 394);
-            this.pnlBattle.TabIndex = 0;
-            this.pnlBattle.Visible = false;
             // 
             // pnlBattleOptions
             // 
@@ -104,6 +98,7 @@
             // pnlInventory
             // 
             this.pnlInventory.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pnlInventory.Controls.Add(this.lblInventoryTitle);
             this.pnlInventory.Controls.Add(this.txtInventoryListOutGame);
             this.pnlInventory.Controls.Add(this.pnlBattleOptions);
             this.pnlInventory.Location = new System.Drawing.Point(-1, 0);
@@ -111,6 +106,16 @@
             this.pnlInventory.Size = new System.Drawing.Size(380, 412);
             this.pnlInventory.TabIndex = 1;
             this.pnlInventory.Visible = false;
+            // 
+            // lblInventoryTitle
+            // 
+            this.lblInventoryTitle.AutoSize = true;
+            this.lblInventoryTitle.Font = new System.Drawing.Font("Adobe Fan Heiti Std B", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInventoryTitle.Location = new System.Drawing.Point(139, 26);
+            this.lblInventoryTitle.Name = "lblInventoryTitle";
+            this.lblInventoryTitle.Size = new System.Drawing.Size(71, 26);
+            this.lblInventoryTitle.TabIndex = 2;
+            this.lblInventoryTitle.Text = "label1";
             // 
             // txtInventoryListOutGame
             // 
@@ -169,7 +174,9 @@
             // pnlStore
             // 
             this.pnlStore.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlStore.Controls.Add(this.lblStoreList);
+            this.pnlStore.Controls.Add(this.lblPlayerMoney);
+            this.pnlStore.Controls.Add(this.lblPurchased);
+            this.pnlStore.Controls.Add(this.txtStoreList);
             this.pnlStore.Controls.Add(this.lblShopTitle);
             this.pnlStore.Location = new System.Drawing.Point(-1, 0);
             this.pnlStore.Name = "pnlStore";
@@ -177,16 +184,24 @@
             this.pnlStore.TabIndex = 3;
             this.pnlStore.Visible = false;
             // 
-            // lblStoreList
+            // lblPurchased
             // 
-            this.lblStoreList.AutoSize = true;
-            this.lblStoreList.Font = new System.Drawing.Font("Adobe Fan Heiti Std B", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStoreList.Location = new System.Drawing.Point(26, 55);
-            this.lblStoreList.Name = "lblStoreList";
-            this.lblStoreList.Size = new System.Drawing.Size(54, 20);
-            this.lblStoreList.TabIndex = 4;
-            this.lblStoreList.Text = "label1";
-            this.lblStoreList.Visible = false;
+            this.lblPurchased.AutoSize = true;
+            this.lblPurchased.Location = new System.Drawing.Point(40, 45);
+            this.lblPurchased.Name = "lblPurchased";
+            this.lblPurchased.Size = new System.Drawing.Size(35, 13);
+            this.lblPurchased.TabIndex = 13;
+            this.lblPurchased.Text = "label1";
+            // 
+            // txtStoreList
+            // 
+            this.txtStoreList.Location = new System.Drawing.Point(42, 61);
+            this.txtStoreList.Multiline = true;
+            this.txtStoreList.Name = "txtStoreList";
+            this.txtStoreList.ReadOnly = true;
+            this.txtStoreList.Size = new System.Drawing.Size(301, 339);
+            this.txtStoreList.TabIndex = 5;
+            this.txtStoreList.TextChanged += new System.EventHandler(this.txtStoreList_TextChanged);
             // 
             // lblShopTitle
             // 
@@ -219,6 +234,75 @@
             this.lblBattleResults.TabIndex = 3;
             this.lblBattleResults.Text = "label1";
             this.lblBattleResults.Visible = false;
+            // 
+            // pnlAttacks
+            // 
+            this.pnlAttacks.Controls.Add(this.lblAttack3);
+            this.pnlAttacks.Controls.Add(this.lblAttack2);
+            this.pnlAttacks.Controls.Add(this.lblAttack1);
+            this.pnlAttacks.Controls.Add(this.btnExitAttacks);
+            this.pnlAttacks.Location = new System.Drawing.Point(409, 229);
+            this.pnlAttacks.Name = "pnlAttacks";
+            this.pnlAttacks.Size = new System.Drawing.Size(705, 220);
+            this.pnlAttacks.TabIndex = 7;
+            this.pnlAttacks.Visible = false;
+            // 
+            // lblAttack3
+            // 
+            this.lblAttack3.AutoSize = true;
+            this.lblAttack3.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttack3.Location = new System.Drawing.Point(30, 180);
+            this.lblAttack3.Name = "lblAttack3";
+            this.lblAttack3.Size = new System.Drawing.Size(60, 13);
+            this.lblAttack3.TabIndex = 6;
+            this.lblAttack3.Text = "Attack3";
+            this.lblAttack3.Visible = false;
+            // 
+            // lblAttack2
+            // 
+            this.lblAttack2.AutoSize = true;
+            this.lblAttack2.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttack2.Location = new System.Drawing.Point(389, 32);
+            this.lblAttack2.Name = "lblAttack2";
+            this.lblAttack2.Size = new System.Drawing.Size(60, 13);
+            this.lblAttack2.TabIndex = 5;
+            this.lblAttack2.Text = "Attack2";
+            this.lblAttack2.Visible = false;
+            // 
+            // lblAttack1
+            // 
+            this.lblAttack1.AutoSize = true;
+            this.lblAttack1.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttack1.Location = new System.Drawing.Point(30, 32);
+            this.lblAttack1.Name = "lblAttack1";
+            this.lblAttack1.Size = new System.Drawing.Size(57, 13);
+            this.lblAttack1.TabIndex = 4;
+            this.lblAttack1.Text = "Attack1";
+            this.lblAttack1.Visible = false;
+            // 
+            // btnExitAttacks
+            // 
+            this.btnExitAttacks.Location = new System.Drawing.Point(392, 175);
+            this.btnExitAttacks.Name = "btnExitAttacks";
+            this.btnExitAttacks.Size = new System.Drawing.Size(291, 23);
+            this.btnExitAttacks.TabIndex = 3;
+            this.btnExitAttacks.Text = "Back";
+            this.btnExitAttacks.UseVisualStyleBackColor = true;
+            this.btnExitAttacks.Visible = false;
+            // 
+            // pnlAnimals
+            // 
+            this.pnlAnimals.Controls.Add(this.btnSwitch2);
+            this.pnlAnimals.Controls.Add(this.btnSwitch1);
+            this.pnlAnimals.Controls.Add(this.btnExitAnimals);
+            this.pnlAnimals.Controls.Add(this.lblAnimal3);
+            this.pnlAnimals.Controls.Add(this.lblAnimal2);
+            this.pnlAnimals.Controls.Add(this.lblAnimal1);
+            this.pnlAnimals.Location = new System.Drawing.Point(428, 26);
+            this.pnlAnimals.Name = "pnlAnimals";
+            this.pnlAnimals.Size = new System.Drawing.Size(705, 220);
+            this.pnlAnimals.TabIndex = 9;
+            this.pnlAnimals.Visible = false;
             // 
             // btnSwitch2
             // 
@@ -253,46 +337,56 @@
             // lblAnimal3
             // 
             this.lblAnimal3.AutoSize = true;
+            this.lblAnimal3.Font = new System.Drawing.Font("Felix Titling", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnimal3.Location = new System.Drawing.Point(14, 192);
             this.lblAnimal3.Name = "lblAnimal3";
-            this.lblAnimal3.Size = new System.Drawing.Size(35, 13);
+            this.lblAnimal3.Size = new System.Drawing.Size(80, 19);
             this.lblAnimal3.TabIndex = 2;
-            this.lblAnimal3.Text = "label3";
+            this.lblAnimal3.Text = "Animal3";
             this.lblAnimal3.Visible = false;
-            // 
-            // lblAnimal1
-            // 
-            this.lblAnimal1.AutoSize = true;
-            this.lblAnimal1.Location = new System.Drawing.Point(14, 49);
-            this.lblAnimal1.Name = "lblAnimal1";
-            this.lblAnimal1.Size = new System.Drawing.Size(35, 13);
-            this.lblAnimal1.TabIndex = 0;
-            this.lblAnimal1.Text = "label1";
-            this.lblAnimal1.Visible = false;
-            // 
-            // pnlAnimals
-            // 
-            this.pnlAnimals.Controls.Add(this.btnSwitch2);
-            this.pnlAnimals.Controls.Add(this.btnSwitch1);
-            this.pnlAnimals.Controls.Add(this.btnExitAnimals);
-            this.pnlAnimals.Controls.Add(this.lblAnimal3);
-            this.pnlAnimals.Controls.Add(this.lblAnimal2);
-            this.pnlAnimals.Controls.Add(this.lblAnimal1);
-            this.pnlAnimals.Location = new System.Drawing.Point(-251, -147);
-            this.pnlAnimals.Name = "pnlAnimals";
-            this.pnlAnimals.Size = new System.Drawing.Size(705, 220);
-            this.pnlAnimals.TabIndex = 8;
-            this.pnlAnimals.Visible = false;
             // 
             // lblAnimal2
             // 
             this.lblAnimal2.AutoSize = true;
+            this.lblAnimal2.Font = new System.Drawing.Font("Felix Titling", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnimal2.Location = new System.Drawing.Point(14, 122);
             this.lblAnimal2.Name = "lblAnimal2";
-            this.lblAnimal2.Size = new System.Drawing.Size(35, 13);
+            this.lblAnimal2.Size = new System.Drawing.Size(80, 19);
             this.lblAnimal2.TabIndex = 1;
-            this.lblAnimal2.Text = "label2";
+            this.lblAnimal2.Text = "Animal2";
             this.lblAnimal2.Visible = false;
+            // 
+            // lblAnimal1
+            // 
+            this.lblAnimal1.AutoSize = true;
+            this.lblAnimal1.Font = new System.Drawing.Font("Felix Titling", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAnimal1.Location = new System.Drawing.Point(14, 49);
+            this.lblAnimal1.Name = "lblAnimal1";
+            this.lblAnimal1.Size = new System.Drawing.Size(75, 19);
+            this.lblAnimal1.TabIndex = 0;
+            this.lblAnimal1.Text = "Animal1";
+            this.lblAnimal1.Visible = false;
+            // 
+            // pnlBattleInv
+            // 
+            this.pnlBattleInv.Controls.Add(this.btnUsedItem6);
+            this.pnlBattleInv.Controls.Add(this.btnUsedItem5);
+            this.pnlBattleInv.Controls.Add(this.btnUsedItem4);
+            this.pnlBattleInv.Controls.Add(this.btnUseItem3);
+            this.pnlBattleInv.Controls.Add(this.btnUseItem2);
+            this.pnlBattleInv.Controls.Add(this.btnUseItem1);
+            this.pnlBattleInv.Controls.Add(this.lblItem4);
+            this.pnlBattleInv.Controls.Add(this.btnExitBInv);
+            this.pnlBattleInv.Controls.Add(this.lblItem6);
+            this.pnlBattleInv.Controls.Add(this.lblItem5);
+            this.pnlBattleInv.Controls.Add(this.lblItem2);
+            this.pnlBattleInv.Controls.Add(this.lblItem3);
+            this.pnlBattleInv.Controls.Add(this.lblItem1);
+            this.pnlBattleInv.Location = new System.Drawing.Point(211, 120);
+            this.pnlBattleInv.Name = "pnlBattleInv";
+            this.pnlBattleInv.Size = new System.Drawing.Size(705, 220);
+            this.pnlBattleInv.TabIndex = 10;
+            this.pnlBattleInv.Visible = false;
             // 
             // btnUsedItem6
             // 
@@ -323,27 +417,6 @@
             this.btnUsedItem4.Text = "Back";
             this.btnUsedItem4.UseVisualStyleBackColor = true;
             this.btnUsedItem4.Visible = false;
-            // 
-            // pnlBattleInv
-            // 
-            this.pnlBattleInv.Controls.Add(this.btnUsedItem6);
-            this.pnlBattleInv.Controls.Add(this.btnUsedItem5);
-            this.pnlBattleInv.Controls.Add(this.btnUsedItem4);
-            this.pnlBattleInv.Controls.Add(this.btnUseItem3);
-            this.pnlBattleInv.Controls.Add(this.btnUseItem2);
-            this.pnlBattleInv.Controls.Add(this.btnUseItem1);
-            this.pnlBattleInv.Controls.Add(this.lblItem4);
-            this.pnlBattleInv.Controls.Add(this.btnExitBInv);
-            this.pnlBattleInv.Controls.Add(this.lblItem6);
-            this.pnlBattleInv.Controls.Add(this.lblItem5);
-            this.pnlBattleInv.Controls.Add(this.lblItem2);
-            this.pnlBattleInv.Controls.Add(this.lblItem3);
-            this.pnlBattleInv.Controls.Add(this.lblItem1);
-            this.pnlBattleInv.Location = new System.Drawing.Point(484, 40);
-            this.pnlBattleInv.Name = "pnlBattleInv";
-            this.pnlBattleInv.Size = new System.Drawing.Size(705, 220);
-            this.pnlBattleInv.TabIndex = 7;
-            this.pnlBattleInv.Visible = false;
             // 
             // btnUseItem3
             // 
@@ -378,11 +451,12 @@
             // lblItem4
             // 
             this.lblItem4.AutoSize = true;
+            this.lblItem4.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem4.Location = new System.Drawing.Point(25, 133);
             this.lblItem4.Name = "lblItem4";
-            this.lblItem4.Size = new System.Drawing.Size(35, 13);
+            this.lblItem4.Size = new System.Drawing.Size(39, 13);
             this.lblItem4.TabIndex = 6;
-            this.lblItem4.Text = "label1";
+            this.lblItem4.Text = "Item4";
             this.lblItem4.Visible = false;
             // 
             // btnExitBInv
@@ -398,51 +472,56 @@
             // lblItem6
             // 
             this.lblItem6.AutoSize = true;
+            this.lblItem6.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem6.Location = new System.Drawing.Point(25, 183);
             this.lblItem6.Name = "lblItem6";
-            this.lblItem6.Size = new System.Drawing.Size(35, 13);
+            this.lblItem6.Size = new System.Drawing.Size(39, 13);
             this.lblItem6.TabIndex = 4;
-            this.lblItem6.Text = "label5";
+            this.lblItem6.Text = "Item6";
             this.lblItem6.Visible = false;
             // 
             // lblItem5
             // 
             this.lblItem5.AutoSize = true;
+            this.lblItem5.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem5.Location = new System.Drawing.Point(25, 158);
             this.lblItem5.Name = "lblItem5";
-            this.lblItem5.Size = new System.Drawing.Size(35, 13);
+            this.lblItem5.Size = new System.Drawing.Size(39, 13);
             this.lblItem5.TabIndex = 3;
-            this.lblItem5.Text = "label4";
+            this.lblItem5.Text = "Item5";
             this.lblItem5.Visible = false;
             // 
             // lblItem2
             // 
             this.lblItem2.AutoSize = true;
+            this.lblItem2.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem2.Location = new System.Drawing.Point(25, 82);
             this.lblItem2.Name = "lblItem2";
-            this.lblItem2.Size = new System.Drawing.Size(35, 13);
+            this.lblItem2.Size = new System.Drawing.Size(39, 13);
             this.lblItem2.TabIndex = 2;
-            this.lblItem2.Text = "label3";
+            this.lblItem2.Text = "Item2";
             this.lblItem2.Visible = false;
             // 
             // lblItem3
             // 
             this.lblItem3.AutoSize = true;
+            this.lblItem3.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem3.Location = new System.Drawing.Point(25, 108);
             this.lblItem3.Name = "lblItem3";
-            this.lblItem3.Size = new System.Drawing.Size(35, 13);
+            this.lblItem3.Size = new System.Drawing.Size(39, 13);
             this.lblItem3.TabIndex = 1;
-            this.lblItem3.Text = "label2";
+            this.lblItem3.Text = "Item3";
             this.lblItem3.Visible = false;
             // 
             // lblItem1
             // 
             this.lblItem1.AutoSize = true;
+            this.lblItem1.Font = new System.Drawing.Font("Felix Titling", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItem1.Location = new System.Drawing.Point(25, 58);
             this.lblItem1.Name = "lblItem1";
-            this.lblItem1.Size = new System.Drawing.Size(35, 13);
+            this.lblItem1.Size = new System.Drawing.Size(36, 13);
             this.lblItem1.TabIndex = 0;
-            this.lblItem1.Text = "label1";
+            this.lblItem1.Text = "Item1";
             this.lblItem1.Visible = false;
             // 
             // pnlInterface
@@ -454,25 +533,25 @@
             this.pnlInterface.Controls.Add(this.btnInv);
             this.pnlInterface.Controls.Add(this.btnAnimal);
             this.pnlInterface.Controls.Add(this.btnFight);
-            this.pnlInterface.Location = new System.Drawing.Point(-251, 321);
+            this.pnlInterface.Location = new System.Drawing.Point(412, 45);
             this.pnlInterface.Name = "pnlInterface";
             this.pnlInterface.Size = new System.Drawing.Size(705, 247);
-            this.pnlInterface.TabIndex = 5;
+            this.pnlInterface.TabIndex = 11;
             this.pnlInterface.Visible = false;
             // 
             // enemyHealthBar
             // 
             this.enemyHealthBar.Location = new System.Drawing.Point(359, 3);
             this.enemyHealthBar.Name = "enemyHealthBar";
-            this.enemyHealthBar.Size = new System.Drawing.Size(231, 23);
+            this.enemyHealthBar.Size = new System.Drawing.Size(343, 23);
             this.enemyHealthBar.TabIndex = 6;
             this.enemyHealthBar.Visible = false;
             // 
             // playerHealthBar
             // 
-            this.playerHealthBar.Location = new System.Drawing.Point(113, 3);
+            this.playerHealthBar.Location = new System.Drawing.Point(3, 3);
             this.playerHealthBar.Name = "playerHealthBar";
-            this.playerHealthBar.Size = new System.Drawing.Size(231, 23);
+            this.playerHealthBar.Size = new System.Drawing.Size(341, 23);
             this.playerHealthBar.TabIndex = 5;
             this.playerHealthBar.Visible = false;
             // 
@@ -480,6 +559,7 @@
             // 
             this.btnRun.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRun.Font = new System.Drawing.Font("Showcard Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRun.Location = new System.Drawing.Point(359, 139);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(343, 105);
@@ -492,6 +572,7 @@
             // 
             this.btnInv.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnInv.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnInv.Font = new System.Drawing.Font("Showcard Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInv.Location = new System.Drawing.Point(359, 31);
             this.btnInv.Name = "btnInv";
             this.btnInv.Size = new System.Drawing.Size(343, 105);
@@ -504,6 +585,7 @@
             // 
             this.btnAnimal.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnAnimal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAnimal.Font = new System.Drawing.Font("Showcard Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnimal.Location = new System.Drawing.Point(3, 139);
             this.btnAnimal.Name = "btnAnimal";
             this.btnAnimal.Size = new System.Drawing.Size(341, 105);
@@ -516,6 +598,7 @@
             // 
             this.btnFight.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnFight.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFight.Font = new System.Drawing.Font("Showcard Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFight.Location = new System.Drawing.Point(3, 31);
             this.btnFight.Name = "btnFight";
             this.btnFight.Size = new System.Drawing.Size(341, 105);
@@ -524,74 +607,44 @@
             this.btnFight.UseVisualStyleBackColor = false;
             this.btnFight.Visible = false;
             // 
-            // btnExitAttacks
+            // lblPlayerMoney
             // 
-            this.btnExitAttacks.Location = new System.Drawing.Point(392, 175);
-            this.btnExitAttacks.Name = "btnExitAttacks";
-            this.btnExitAttacks.Size = new System.Drawing.Size(291, 23);
-            this.btnExitAttacks.TabIndex = 3;
-            this.btnExitAttacks.Text = "Back";
-            this.btnExitAttacks.UseVisualStyleBackColor = true;
-            this.btnExitAttacks.Visible = false;
+            this.lblPlayerMoney.AutoSize = true;
+            this.lblPlayerMoney.Location = new System.Drawing.Point(271, 45);
+            this.lblPlayerMoney.Name = "lblPlayerMoney";
+            this.lblPlayerMoney.Size = new System.Drawing.Size(35, 13);
+            this.lblPlayerMoney.TabIndex = 14;
+            this.lblPlayerMoney.Text = "label1";
             // 
-            // pnlAttacks
+            // lblNotification
             // 
-            this.pnlAttacks.Controls.Add(this.lblAttack3);
-            this.pnlAttacks.Controls.Add(this.lblAttack2);
-            this.pnlAttacks.Controls.Add(this.lblAttack1);
-            this.pnlAttacks.Controls.Add(this.btnExitAttacks);
-            this.pnlAttacks.Location = new System.Drawing.Point(-251, 95);
-            this.pnlAttacks.Name = "pnlAttacks";
-            this.pnlAttacks.Size = new System.Drawing.Size(705, 220);
-            this.pnlAttacks.TabIndex = 6;
-            this.pnlAttacks.Visible = false;
-            // 
-            // lblAttack3
-            // 
-            this.lblAttack3.AutoSize = true;
-            this.lblAttack3.Location = new System.Drawing.Point(30, 180);
-            this.lblAttack3.Name = "lblAttack3";
-            this.lblAttack3.Size = new System.Drawing.Size(35, 13);
-            this.lblAttack3.TabIndex = 6;
-            this.lblAttack3.Text = "label3";
-            this.lblAttack3.Visible = false;
-            // 
-            // lblAttack2
-            // 
-            this.lblAttack2.AutoSize = true;
-            this.lblAttack2.Location = new System.Drawing.Point(389, 32);
-            this.lblAttack2.Name = "lblAttack2";
-            this.lblAttack2.Size = new System.Drawing.Size(35, 13);
-            this.lblAttack2.TabIndex = 5;
-            this.lblAttack2.Text = "label2";
-            this.lblAttack2.Visible = false;
-            // 
-            // lblAttack1
-            // 
-            this.lblAttack1.AutoSize = true;
-            this.lblAttack1.Location = new System.Drawing.Point(30, 32);
-            this.lblAttack1.Name = "lblAttack1";
-            this.lblAttack1.Size = new System.Drawing.Size(35, 13);
-            this.lblAttack1.TabIndex = 4;
-            this.lblAttack1.Text = "label1";
-            this.lblAttack1.Visible = false;
+            this.lblNotification.AutoSize = true;
+            this.lblNotification.BackColor = System.Drawing.Color.Transparent;
+            this.lblNotification.Font = new System.Drawing.Font("Adobe Fan Heiti Std B", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNotification.Location = new System.Drawing.Point(406, 6);
+            this.lblNotification.Name = "lblNotification";
+            this.lblNotification.Size = new System.Drawing.Size(151, 26);
+            this.lblNotification.TabIndex = 12;
+            this.lblNotification.Text = "lblNotification";
+            this.lblNotification.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 461);
-            this.Controls.Add(this.pnlAnimals);
-            this.Controls.Add(this.pnlBattleInv);
+            this.ClientSize = new System.Drawing.Size(847, 473);
+            this.Controls.Add(this.lblNotification);
             this.Controls.Add(this.pnlInterface);
+            this.Controls.Add(this.pnlBattleInv);
+            this.Controls.Add(this.pnlAnimals);
             this.Controls.Add(this.pnlAttacks);
-            this.Controls.Add(this.pnlBattle);
             this.Controls.Add(this.pnlResults);
-            this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.pnlStore);
             this.Controls.Add(this.pnlInventory);
+            this.Controls.Add(this.pnlMenu);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
-            this.Text = "a";
+            this.Text = "Animal Game";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.pnlInventory.ResumeLayout(false);
             this.pnlInventory.PerformLayout();
@@ -601,20 +654,20 @@
             this.pnlStore.PerformLayout();
             this.pnlResults.ResumeLayout(false);
             this.pnlResults.PerformLayout();
+            this.pnlAttacks.ResumeLayout(false);
+            this.pnlAttacks.PerformLayout();
             this.pnlAnimals.ResumeLayout(false);
             this.pnlAnimals.PerformLayout();
             this.pnlBattleInv.ResumeLayout(false);
             this.pnlBattleInv.PerformLayout();
             this.pnlInterface.ResumeLayout(false);
-            this.pnlAttacks.ResumeLayout(false);
-            this.pnlAttacks.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlBattle;
         private System.Windows.Forms.Panel pnlBattleOptions;
         private System.Windows.Forms.Panel pnlInventory;
         private System.Windows.Forms.TextBox txtInventoryListOutGame;
@@ -623,21 +676,26 @@
         private System.Windows.Forms.Label lblMenuOptions;
         private System.Windows.Forms.Label lblMenuTitle;
         private System.Windows.Forms.Panel pnlStore;
-        private System.Windows.Forms.Label lblStoreList;
         private System.Windows.Forms.Label lblShopTitle;
         private System.Windows.Forms.Panel pnlResults;
         private System.Windows.Forms.Label lblBattleResults;
+        private System.Windows.Forms.Label lblInventoryTitle;
+        private System.Windows.Forms.Panel pnlAttacks;
+        private System.Windows.Forms.Label lblAttack3;
+        private System.Windows.Forms.Label lblAttack2;
+        private System.Windows.Forms.Label lblAttack1;
+        private System.Windows.Forms.Button btnExitAttacks;
+        private System.Windows.Forms.Panel pnlAnimals;
         private System.Windows.Forms.Button btnSwitch2;
         private System.Windows.Forms.Button btnSwitch1;
         private System.Windows.Forms.Button btnExitAnimals;
         private System.Windows.Forms.Label lblAnimal3;
-        private System.Windows.Forms.Label lblAnimal1;
-        private System.Windows.Forms.Panel pnlAnimals;
         private System.Windows.Forms.Label lblAnimal2;
+        private System.Windows.Forms.Label lblAnimal1;
+        private System.Windows.Forms.Panel pnlBattleInv;
         private System.Windows.Forms.Button btnUsedItem6;
         private System.Windows.Forms.Button btnUsedItem5;
         private System.Windows.Forms.Button btnUsedItem4;
-        private System.Windows.Forms.Panel pnlBattleInv;
         private System.Windows.Forms.Button btnUseItem3;
         private System.Windows.Forms.Button btnUseItem2;
         private System.Windows.Forms.Button btnUseItem1;
@@ -655,11 +713,10 @@
         private System.Windows.Forms.Button btnInv;
         private System.Windows.Forms.Button btnAnimal;
         private System.Windows.Forms.Button btnFight;
-        private System.Windows.Forms.Button btnExitAttacks;
-        private System.Windows.Forms.Panel pnlAttacks;
-        private System.Windows.Forms.Label lblAttack3;
-        private System.Windows.Forms.Label lblAttack2;
-        private System.Windows.Forms.Label lblAttack1;
+        private System.Windows.Forms.TextBox txtStoreList;
+        private System.Windows.Forms.Label lblPurchased;
+        private System.Windows.Forms.Label lblPlayerMoney;
+        private System.Windows.Forms.Label lblNotification;
     }
 }
 
